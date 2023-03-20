@@ -65,7 +65,7 @@ const AddUser = () => {
               <FormControl fullWidth>
                 <Box className="flex items-center  p-1 rounded">
                   <FormControlLabel
-                    label="Is Admin"
+                    label={<Typography className="text-gray-500">Is Admin</Typography>}
                     control={
                       <Checkbox
                         icon={<Person2Outlined/>}
