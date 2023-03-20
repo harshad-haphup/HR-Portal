@@ -5,7 +5,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
-import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import "../app.css"
+
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
    <App/>,
