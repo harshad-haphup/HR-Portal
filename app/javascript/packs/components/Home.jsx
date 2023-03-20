@@ -1,11 +1,12 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 import React from 'react'
+import Header from './Header'
 
 const Home = () => {
   return (
-    <Box>
-      <Typography>Hello User</Typography>
-    </Box>
+    <Paper>
+      <Header/>
+    </Paper>
   )
 }
 
