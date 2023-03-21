@@ -1,11 +1,14 @@
 import { Box, Paper, Typography } from '@mui/material'
 import React from 'react'
-import Header from './Header'
 
 const Home = () => {
   return (
-    <Paper>
-      <Header/>
+    <Paper className='p-4'>
+      <Box>
+        <Typography>
+          Dashboard
+        </Typography>
+      </Box>
     </Paper>
   )
 }

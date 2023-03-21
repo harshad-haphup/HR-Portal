@@ -23,7 +23,8 @@ const Header = () => {
           </Typography></Link>
           <Box className='flex gap-5'>
             <Link to="/add"><Typography>Add User</Typography></Link>
-            <Typography>User List</Typography>
+            <Link to="/users"><Typography>User List</Typography></Link>
+            
             <Typography color="inherit">Logout</Typography>
           </Box>
         </Toolbar>

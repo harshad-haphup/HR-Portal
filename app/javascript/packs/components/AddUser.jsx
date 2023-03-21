@@ -13,37 +13,44 @@ import {
   Stack,
   TextField,
   Typography,
+  Alert
 } from "@mui/material";
 import React from "react";
-import Header from "./Header";
 import { Person2Outlined, Person } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import axios from 'axios'
+import Toast from "./Toast";
 
 const AddUser = () => {
+  const [open, setOpen] = React.useState(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    // console.log(data)
     saveData(data)
   };
   const saveData = async (data)=>{
     try {
     const user = await axios.post("/user",data);
-    console.log("response from server >> ",user) 
-      
+    if(user){
+      reset();
+      setOpen(true);
+      setTimeout(()=>{
+        setOpen(false)
+      },3000)
+    }      
     } catch (error) {
       console.log(error)
     }
   }
   return (
     <>
-      <Header />
-      <Container className="m-8">
+      <Box className="m-8">
+        <Toast msg="User Added" open={open} setOpen={setOpen} title="Success" severity="success"/>
         <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
           <Stack spacing={2} className="mx-0 sm:mx-8 md:mx-16 mb-4">
             <Box>
@@ -127,6 +134,10 @@ const AddUser = () => {
                   value: /^[0-9]+$/,
                   message: "Only numbers are Accepted",
                 },
+                maxLength:{
+                  value:10,
+                  message:"Maximum 10 digit Accepted",
+                }
                })}
                 error={Boolean(errors.contact_no)}
                 helperText={errors.contact_no?.message}
@@ -150,7 +161,7 @@ const AddUser = () => {
                 fullWidth
                 {...register("address", { required: "Address no is required",maxLength:{
                   value:100,
-                  message:"MAximum length Exceeded",
+                  message:"Maximum length Exceeded",
                 } })}
                 error={Boolean(errors.address)}
                 helperText={errors.address?.message}
@@ -214,7 +225,7 @@ const AddUser = () => {
             </Box>
           </Stack>
         </form>
-      </Container>
+      </Box>
     </>
   );
 };
