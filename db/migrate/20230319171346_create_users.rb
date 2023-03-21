@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :contact_no
       t.string :address
       t.string :job_profile
-      t.string :is_admin
+      t.integer :is_admin
       t.float :salary
 
       t.timestamps

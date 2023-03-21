@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2023_03_19_171346) do
     t.string "contact_no"
     t.string "address"
     t.string "job_profile"
-    t.string "is_admin"
+    t.integer "is_admin"
     t.float "salary"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

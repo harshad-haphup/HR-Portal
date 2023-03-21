@@ -18,6 +18,7 @@ import React from "react";
 import Header from "./Header";
 import { Person2Outlined, Person } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
+import axios from 'axios'
 
 const AddUser = () => {
   const {
@@ -27,10 +28,17 @@ const AddUser = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    // console.log(data)
     saveData(data)
   };
   const saveData = async (data)=>{
-    
+    try {
+    const user = await axios.post("/user",data);
+    console.log("response from server >> ",user) 
+      
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <>
@@ -52,6 +60,14 @@ const AddUser = () => {
                   fullWidth
                   {...register("first_name", {
                     required: "First name is required",
+                    pattern: {
+                      value: /^[a-zA-Z]+$/,
+                      message: "Only characters are Accepted",
+                    },
+                    minLength:{
+                      value:2,
+                      message:"Minimum length 2 required",
+                    }
                   })}
                   error={Boolean(errors.first_name)}
                   helperText={errors.first_name?.message}
@@ -63,6 +79,14 @@ const AddUser = () => {
                   fullWidth
                   {...register("middle_name", {
                     required: "Middle name is Required",
+                    pattern: {
+                      value: /^[a-zA-Z]+$/,
+                      message: "Only characters are Accepted",
+                    },
+                    minLength:{
+                      value:2,
+                      message:"Minimum length 2 required",
+                    }
                   })}
                   error={Boolean(errors.middle_name)}
                   helperText={errors.middle_name?.message}
@@ -71,7 +95,15 @@ const AddUser = () => {
                   label="Last Name*"
                   variant="outlined"
                   fullWidth
-                  {...register("last_name", { required: "Last name is required" })}
+                  {...register("last_name", { required: "Last name is required", 
+                  pattern: {
+                    value: /^[a-zA-Z]+$/,
+                    message: "Only characters are Accepted",
+                  },
+                  minLength:{
+                    value:2,
+                    message:"Minimum length 2 required",
+                  } })}
                   error={Boolean(errors.last_name)}
                   helperText={errors.last_name?.message}
                 />
@@ -90,7 +122,12 @@ const AddUser = () => {
                 label="Contact No*" 
                 variant="outlined" 
                 fullWidth
-                {...register("contact_no", { required: "Contact no is required" })}
+                {...register("contact_no", { required: "Contact no is required",
+                  pattern: {
+                  value: /^[0-9]+$/,
+                  message: "Only numbers are Accepted",
+                },
+               })}
                 error={Boolean(errors.contact_no)}
                 helperText={errors.contact_no?.message}
                 />
@@ -98,7 +135,12 @@ const AddUser = () => {
                 label="Email*" 
                 variant="outlined" 
                 fullWidth
-                {...register("email", { required: "Email no is required" })}
+                {...register("email", { required: "Email no is required",
+                pattern: {
+                  value: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
+                  message: "Enter valid Email Address",
+                },
+              })}
                 error={Boolean(errors.email)}
                 helperText={errors.email?.message}
                 />
@@ -106,7 +148,10 @@ const AddUser = () => {
                 label="Address*" 
                 variant="outlined" 
                 fullWidth
-                {...register("address", { required: "Address no is required" })}
+                {...register("address", { required: "Address no is required",maxLength:{
+                  value:100,
+                  message:"MAximum length Exceeded",
+                } })}
                 error={Boolean(errors.address)}
                 helperText={errors.address?.message}
                 />
@@ -133,7 +178,11 @@ const AddUser = () => {
                 label="Salary*" 
                 variant="outlined" 
                 fullWidth
-                {...register("salary", { required: "Salary no is required" })}
+                {...register("salary", { required: "Salary no is required",
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: "Only numbers are Accepted",
+                }, })}
                 error={Boolean(errors.salary)}
                 helperText={errors.salary?.message}
                 />
