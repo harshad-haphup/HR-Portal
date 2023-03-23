@@ -7,6 +7,9 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :email
       t.string :contact_no
       t.string :address
+      t.string :bank_name
+      t.string :account_no
+      t.string :ifsc_no
       t.string :job_profile
       t.integer :is_admin
       t.float :salary

@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios'
 import Toast from "./Toast";
 
+
 const AddUser = () => {
   const [open, setOpen] = React.useState(false);
   const {
@@ -49,7 +50,7 @@ const AddUser = () => {
   }
   return (
     <>
-      <Box className="m-8">
+      <Box className="mt-8">
         <Toast msg="User Added" open={open} setOpen={setOpen} title="Success" severity="success"/>
         <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
           <Stack spacing={2} className="mx-0 sm:mx-8 md:mx-16 mb-4">
@@ -168,7 +169,52 @@ const AddUser = () => {
                 />
               </Box>
             </Box>
-            {/* Third Row */}
+              {/* Third Row */}
+              <Box>
+              <Typography
+                className="font-bold text-lg border-l-4 px-2 mt-4 border-blue-500 bg-blue-100 max-w-max rounded-sm"
+                variant="h6"
+              >
+                Bank Information
+              </Typography>
+              <Box className="flex flex-col gap-4 mt-3 mx-2 md:flex-row">
+                <TextField 
+                label="Bank Name*" 
+                variant="outlined" 
+                fullWidth
+                {...register("bank_name", { required: "Bank Name is required",
+                  pattern: {
+                  value: /^[a-zA-Z ]+$/,
+                  message: "Only Characters are Accepted",
+                }
+               })}
+                error={Boolean(errors.bank_name)}
+                helperText={errors.bank_name?.message}
+                />
+                <TextField 
+                label="Account No*" 
+                variant="outlined" 
+                fullWidth
+                {...register("account_no", { required: "Account no is required",
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: "Enter valid Account No",
+                },
+              })}
+                error={Boolean(errors.account_no)}
+                helperText={errors.account_no?.message}
+                />
+                <TextField 
+                label="IFSC No*" 
+                variant="outlined" 
+                fullWidth
+                {...register("ifsc_no", { required: "IFSC no is required" })}
+                error={Boolean(errors.ifsc_no)}
+                helperText={errors.ifsc_no?.message}
+                />
+              </Box>
+            </Box>
+            {/* Fourth Row */}
             <Box>
               <Typography
                 className="font-bold text-lg border-l-4 mt-4 px-2 border-blue-500 bg-blue-100 max-w-max rounded-sm"
