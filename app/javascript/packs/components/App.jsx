@@ -9,6 +9,7 @@ import Navbar from './Navbar'
 import { Box, Container } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import UpdateUser from './UpdateUser'
+import Deduction from './Deduction'
 
 const App = () => {
   const matches = useMediaQuery('(min-width:768px)');
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/user/update/:id" element={<UpdateUser/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/users" element={<UserList/>}/>
+          <Route path="/deduction" element={<Deduction/>}/>
         </Routes>
         </Container>
        </Router>

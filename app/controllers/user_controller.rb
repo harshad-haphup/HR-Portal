@@ -39,4 +39,9 @@ class UserController < ApplicationController
         count=User.count
         render json: { 'count': count}, status: :ok
     end
+    
+    def job_profiles
+        job_profiles=User.distinct.pluck(:job_profile)
+        render json: { 'job_profiles': job_profiles}, status: :ok
+    end
 end

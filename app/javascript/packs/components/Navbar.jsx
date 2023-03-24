@@ -14,6 +14,7 @@ import {
   Toolbar,
   Typography,
   Button,
+  Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
@@ -34,13 +35,15 @@ function DrawerAppBar(props) {
       <Typography variant="h6" sx={{ my: 2 }}>
         HR Portal
       </Typography>
-      <Divider />
+      <Divider sx={{marginBottom:2}}/>
+      <Stack direction="column" spacing={2}>
       <Link to="/add">
         <Typography>Add User</Typography>
       </Link>
       <Link to="/users">
         <Typography>User List</Typography>
       </Link>
+      </Stack>
     </Box>
   );
 
@@ -75,6 +78,9 @@ function DrawerAppBar(props) {
             </Link>
             <Link to="/users">
               <Typography>User List</Typography>
+            </Link>
+            <Link to="/deduction">
+              <Typography>Decuction</Typography>
             </Link>
           </Box>
         </Toolbar>

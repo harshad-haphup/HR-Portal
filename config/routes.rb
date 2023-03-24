@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :user do
     collection do
       get '/user_count' => 'user#count'
+      get '/job_profiles' => 'user#job_profiles'
     end
   end
   match "*path", to:'pages#index', via: :all

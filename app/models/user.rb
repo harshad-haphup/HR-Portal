@@ -15,7 +15,5 @@ class User < ApplicationRecord
     validates :salary, presence: true
 end
 
-# class Manager < User
-# end
 
 
