@@ -15,12 +15,13 @@ import {
   TextField,
   Typography,
   Alert,
+  Backdrop,
 } from "@mui/material";
 import { Person2Outlined, Person } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Toast from "./Toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const UpdateUser = () => {
     const [open, setOpen] = React.useState(false);
     const [userData, setUserData] = React.useState({
@@ -34,21 +35,19 @@ const UpdateUser = () => {
       reset,
       formState: { errors },
     } = useForm();
-
+    
+    const navigate = useNavigate();
 
     useEffect(() => {
-      console.log("first time")
       getUser();
     }, [])
     
     useEffect(() => {
-      console.log("rest VAlues Use Effect")
       // reset form with user data
       reset(userData);
   }, [userData]);
 
     const onSubmit = (data) => {
-      console.log("on submit >> ",data)
       updateUser(data)
     };
 
@@ -62,13 +61,14 @@ const UpdateUser = () => {
 
     const updateUser = async (data)=>{
         try {
-        const user = await axios.put(`/user/${params.id}`,data);
-        if(user){
-          reset();
-          setOpen(true);
-          setTimeout(()=>{
-            setOpen(false)
-          },3000)
+          setUserData({})
+          const user = await axios.put(`/user/${params.id}`,data);
+          if(user){
+            setOpen(true);
+            setTimeout(()=>{
+              setOpen(false)
+              navigate(`/users`)
+            },2000)
         }      
         } catch (error) {
           console.log(error)
@@ -78,6 +78,10 @@ const UpdateUser = () => {
 
   return (
     <>
+    <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      ></Backdrop>
       <Box className="mt-8">
         <Toast
           msg="User Information Updated"
@@ -324,7 +328,7 @@ const UpdateUser = () => {
             {/* Submit Button */}
             <Box>
               <Button variant="contained" type="submit">
-                Add User
+                Update User
               </Button>
             </Box>
           </Stack>
