@@ -45,7 +45,7 @@ export default function AlertDialogSlide({title,msg,confirmDelete,setConfirmDele
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleDelete}>Agree</Button>
+          <Button onClick={handleDelete} variant='contained'>Agree</Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -11,15 +11,18 @@ class AdminUsers::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
+  # def create
   #   super
-  user = AdminUser.create! user_params
-      if user.valid?
-        render json: { user:, auth_token: user.authentication_token }
-      else
-        render json: { error: user.errors.full_messages.to_sentence }, status: 422
-      end
-end
+  # end
+
+  def create
+    user = AdminUser.create! user_params
+    if user.valid?
+      render json: { user:, auth_token: user.authentication_token }
+    else
+      render json: { error: user.errors.full_messages.to_sentence }, status: 422
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -66,10 +69,7 @@ end
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-
-  private
   def user_params
     params.require(:admin_user).permit(:email, :password)
   end
-
 end

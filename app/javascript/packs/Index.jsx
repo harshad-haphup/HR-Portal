@@ -4,12 +4,15 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { createRoot } from "react-dom/client";
 import App from './components/App'
 import "../app.css"
 
+const rootElement = document.body.appendChild(document.createElement('div'));
+const root = createRoot(rootElement);
+
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-   <App/>,
-    document.body.appendChild(document.createElement('div')),
+  root.render(
+   <App/>
   )
 })
