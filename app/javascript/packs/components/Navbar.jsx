@@ -17,15 +17,23 @@ import {
   Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link,NavLink,useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
-
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const navigate = useNavigate();
+  const handleLogout =async () =>{
+    try {
+      await axios.delete('admin_users/sign_out');
+      localStorage.clear();
+      navigate("/login");
+    } catch(error) {
+       console.log(error)   
+    }
+  }
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -42,6 +50,9 @@ function DrawerAppBar(props) {
       </Link>
       <Link to="/users">
         <Typography>User List</Typography>
+      </Link>
+      <Link onClick={handleLogout}>
+              <Typography sx={{color:'white'}}>Logout</Typography>
       </Link>
       </Stack>
     </Box>
@@ -73,14 +84,20 @@ function DrawerAppBar(props) {
             sx={{ display: { xs: "none", sm: "flex" } }}
             className="flex gap-5"
           >
-            <Link to="/add">
-              <Typography>Add User</Typography>
-            </Link>
-            <Link to="/users">
+            <NavLink to="/add"
+             className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
+              <Typography >Add User</Typography>
+            </NavLink>
+            <NavLink to="/users"
+            className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
               <Typography>User List</Typography>
-            </Link>
-            <Link to="/deduction">
+            </NavLink>
+            <NavLink to="/deduction"
+            className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
               <Typography>Decuction</Typography>
+            </NavLink>
+            <Link onClick={handleLogout}>
+              <Typography sx={{color:'white'}}>Logout</Typography>
             </Link>
           </Box>
         </Toolbar>

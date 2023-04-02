@@ -13,17 +13,18 @@ import {
   Stack,
   TextField,
   Typography,
-  Alert
+  Alert,
+  FormHelperText,
 } from "@mui/material";
 import React from "react";
 import { Person2Outlined, Person } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
-import axios from 'axios'
+import axios from "axios";
 import Toast from "./Toast";
-
 
 const AddUser = () => {
   const [open, setOpen] = React.useState(false);
+  const [age, setAge] = React.useState('');
   const {
     register,
     handleSubmit,
@@ -31,27 +32,36 @@ const AddUser = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    saveData(data)
+  const handleChange = (event) => {
+    setAge(event.target.value);
   };
-  const saveData = async (data)=>{
+  const onSubmit = (data) => {
+    saveData(data);
+  };
+  const saveData = async (data) => {
     try {
-    const user = await axios.post("/user",data);
-    if(user){
-      reset();
-      setOpen(true);
-      setTimeout(()=>{
-        setOpen(false)
-      },3000)
-    }      
+      const user = await axios.post("/user", data);
+      if (user) {
+        reset();
+        setOpen(true);
+        setTimeout(() => {
+          setOpen(false);
+        }, 3000);
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   return (
     <>
       <Box className="mt-8">
-        <Toast msg="User Added" open={open} setOpen={setOpen} title="Success" severity="success"/>
+        <Toast
+          msg="User Added"
+          open={open}
+          setOpen={setOpen}
+          title="Success"
+          severity="success"
+        />
         <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
           <Stack spacing={2} className="mx-0 sm:mx-8 md:mx-16 mb-4">
             <Box>
@@ -72,10 +82,10 @@ const AddUser = () => {
                       value: /^[a-zA-Z]+$/,
                       message: "Only characters are Accepted",
                     },
-                    minLength:{
-                      value:2,
-                      message:"Minimum length 2 required",
-                    }
+                    minLength: {
+                      value: 2,
+                      message: "Minimum length 2 required",
+                    },
                   })}
                   error={Boolean(errors.first_name)}
                   helperText={errors.first_name?.message}
@@ -91,10 +101,10 @@ const AddUser = () => {
                       value: /^[a-zA-Z]+$/,
                       message: "Only characters are Accepted",
                     },
-                    minLength:{
-                      value:2,
-                      message:"Minimum length 2 required",
-                    }
+                    minLength: {
+                      value: 2,
+                      message: "Minimum length 2 required",
+                    },
                   })}
                   error={Boolean(errors.middle_name)}
                   helperText={errors.middle_name?.message}
@@ -103,15 +113,17 @@ const AddUser = () => {
                   label="Last Name*"
                   variant="outlined"
                   fullWidth
-                  {...register("last_name", { required: "Last name is required", 
-                  pattern: {
-                    value: /^[a-zA-Z]+$/,
-                    message: "Only characters are Accepted",
-                  },
-                  minLength:{
-                    value:2,
-                    message:"Minimum length 2 required",
-                  } })}
+                  {...register("last_name", {
+                    required: "Last name is required",
+                    pattern: {
+                      value: /^[a-zA-Z]+$/,
+                      message: "Only characters are Accepted",
+                    },
+                    minLength: {
+                      value: 2,
+                      message: "Minimum length 2 required",
+                    },
+                  })}
                   error={Boolean(errors.last_name)}
                   helperText={errors.last_name?.message}
                 />
@@ -126,51 +138,56 @@ const AddUser = () => {
                 Contact Information
               </Typography>
               <Box className="flex flex-col gap-4 mt-3 mx-2 md:flex-row">
-                <TextField 
-                label="Contact No*" 
-                variant="outlined" 
-                fullWidth
-                {...register("contact_no", { required: "Contact no is required",
-                  pattern: {
-                  value: /^[0-9]+$/,
-                  message: "Only numbers are Accepted",
-                },
-                maxLength:{
-                  value:10,
-                  message:"Maximum 10 digit Accepted",
-                }
-               })}
-                error={Boolean(errors.contact_no)}
-                helperText={errors.contact_no?.message}
+                <TextField
+                  label="Contact No*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("contact_no", {
+                    required: "Contact no is required",
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Only numbers are Accepted",
+                    },
+                    maxLength: {
+                      value: 10,
+                      message: "Maximum 10 digit Accepted",
+                    },
+                  })}
+                  error={Boolean(errors.contact_no)}
+                  helperText={errors.contact_no?.message}
                 />
-                <TextField 
-                label="Email*" 
-                variant="outlined" 
-                fullWidth
-                {...register("email", { required: "Email no is required",
-                pattern: {
-                  value: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
-                  message: "Enter valid Email Address",
-                },
-              })}
-                error={Boolean(errors.email)}
-                helperText={errors.email?.message}
+                <TextField
+                  label="Email*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("email", {
+                    required: "Email no is required",
+                    pattern: {
+                      value: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
+                      message: "Enter valid Email Address",
+                    },
+                  })}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email?.message}
                 />
-                <TextField 
-                label="Address*" 
-                variant="outlined" 
-                fullWidth
-                {...register("address", { required: "Address no is required",maxLength:{
-                  value:100,
-                  message:"Maximum length Exceeded",
-                } })}
-                error={Boolean(errors.address)}
-                helperText={errors.address?.message}
+                <TextField
+                  label="Address*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("address", {
+                    required: "Address no is required",
+                    maxLength: {
+                      value: 100,
+                      message: "Maximum length Exceeded",
+                    },
+                  })}
+                  error={Boolean(errors.address)}
+                  helperText={errors.address?.message}
                 />
               </Box>
             </Box>
-              {/* Third Row */}
-              <Box>
+            {/* Third Row */}
+            <Box>
               <Typography
                 className="font-bold text-lg border-l-4 px-2 mt-4 border-blue-500 bg-blue-100 max-w-max rounded-sm"
                 variant="h6"
@@ -178,39 +195,41 @@ const AddUser = () => {
                 Bank Information
               </Typography>
               <Box className="flex flex-col gap-4 mt-3 mx-2 md:flex-row">
-                <TextField 
-                label="Bank Name*" 
-                variant="outlined" 
-                fullWidth
-                {...register("bank_name", { required: "Bank Name is required",
-                  pattern: {
-                  value: /^[a-zA-Z ]+$/,
-                  message: "Only Characters are Accepted",
-                }
-               })}
-                error={Boolean(errors.bank_name)}
-                helperText={errors.bank_name?.message}
+                <TextField
+                  label="Bank Name*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("bank_name", {
+                    required: "Bank Name is required",
+                    pattern: {
+                      value: /^[a-zA-Z ]+$/,
+                      message: "Only Characters are Accepted",
+                    },
+                  })}
+                  error={Boolean(errors.bank_name)}
+                  helperText={errors.bank_name?.message}
                 />
-                <TextField 
-                label="Account No*" 
-                variant="outlined" 
-                fullWidth
-                {...register("account_no", { required: "Account no is required",
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: "Enter valid Account No",
-                },
-              })}
-                error={Boolean(errors.account_no)}
-                helperText={errors.account_no?.message}
+                <TextField
+                  label="Account No*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("account_no", {
+                    required: "Account no is required",
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Enter valid Account No",
+                    },
+                  })}
+                  error={Boolean(errors.account_no)}
+                  helperText={errors.account_no?.message}
                 />
-                <TextField 
-                label="IFSC No*" 
-                variant="outlined" 
-                fullWidth
-                {...register("ifsc_no", { required: "IFSC no is required" })}
-                error={Boolean(errors.ifsc_no)}
-                helperText={errors.ifsc_no?.message}
+                <TextField
+                  label="IFSC No*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("ifsc_no", { required: "IFSC no is required" })}
+                  error={Boolean(errors.ifsc_no)}
+                  helperText={errors.ifsc_no?.message}
                 />
               </Box>
             </Box>
@@ -231,17 +250,42 @@ const AddUser = () => {
                 error={Boolean(errors.job_profile)}
                 helperText={errors.job_profile?.message}
                 />
-                <TextField 
-                label="Salary*" 
-                variant="outlined" 
-                fullWidth
-                {...register("salary", { required: "Salary no is required",
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: "Only numbers are Accepted",
-                }, })}
-                error={Boolean(errors.salary)}
-                helperText={errors.salary?.message}
+                {/* <FormControl sx={{ m: 1, minWidth: 120 }} >
+                  <InputLabel id="demo-simple-select-error-label">
+                    Job Profile
+                  </InputLabel>
+                  <Select
+                  labelId="demo-simple-select-error-label"
+                  label="Job Profile"
+                    defaultValue="Job Profile"
+                    value="job_profile"
+                    error={Boolean(errors.job_profile?.message)}
+                    {...register("job_profile", { required: "Select Job Profile" })}
+                  >
+                    <MenuItem value="job profile" defaultChecked>
+                      <em>Job Profile</em>
+                    </MenuItem>
+                    <MenuItem value="employee">Employee</MenuItem>
+                    <MenuItem value="admin">Admin</MenuItem>
+                    <MenuItem value="developer">Developer</MenuItem>
+                    <MenuItem value="tester">Tester</MenuItem>
+                    <MenuItem value="intern">Intern</MenuItem>
+                  </Select>
+                  <FormHelperText>{errors.job_profile?.message}</FormHelperText>
+                </FormControl> */}
+                <TextField
+                  label="Salary*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("salary", {
+                    required: "Salary no is required",
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Only numbers are Accepted",
+                    },
+                  })}
+                  error={Boolean(errors.salary)}
+                  helperText={errors.salary?.message}
                 />
                 <FormControl fullWidth>
                   <Box className="flex items-center  p-1 rounded">

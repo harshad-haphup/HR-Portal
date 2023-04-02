@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-    # self.inheritance_column = 'job_profile'
     has_many :deductions, dependent: :destroy
-
     validates :first_name, presence: true, length: { maximum: 20 }
     validates :middle_name, presence: true, length: { maximum: 20 }
     validates :last_name, presence: true, length: { maximum: 20 }

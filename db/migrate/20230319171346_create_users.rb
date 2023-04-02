@@ -12,7 +12,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :ifsc_no
       t.string :job_profile
       t.integer :is_admin
-      t.float :salary
+      t.text :salary
 
       t.timestamps
     end

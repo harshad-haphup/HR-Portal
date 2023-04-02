@@ -12,5 +12,6 @@ Rails.application.routes.draw do
       get '/job_profiles' => 'user#job_profiles'
     end
   end
+  resources :deduction
   match "*path", to:'pages#index', via: :all
 end

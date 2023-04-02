@@ -13,13 +13,17 @@ import Deduction from './Deduction'
 import Login from './Login'
 import PrivateRoutes from './common/PrivateRoutes'
 import PublicRoutes from './common/PublicRoutes'
+import { setAuthHeaders } from '../api/axios'
 
 const App = () => {
   const matches = useMediaQuery('(min-width:768px)');
+  useEffect(() => {
+    setAuthHeaders();
+  },[]);
   return (
       <Box className='h-screen w-full flex items-center'>
        <Router>
-        <Container sx={!matches ? {paddingTop:25}:null}>
+        <Container sx={!matches ? {paddingTop:25}:{paddingTop:5}}>
         <Routes>
            <Route element={<PrivateRoutes/>}>
               <Route element={<Home/>} path="/" exact/>

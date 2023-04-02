@@ -55,6 +55,7 @@ const UpdateUser = () => {
       const user = await axios.get(`/user/${params.id}`)
         .then((res) => res.data)
         .then((data) => {
+          console.log("user list >> ",data.user);
           setUserData({...data.user})
         });
     };

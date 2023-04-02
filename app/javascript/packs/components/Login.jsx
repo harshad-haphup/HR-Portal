@@ -1,9 +1,10 @@
-import { Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Checkbox, FormControlLabel, Grid, Paper, Stack, TextField, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import { palette } from '@mui/system';
 
 const Login = ({setIsAuthenticated}) => {
     const {
@@ -37,10 +38,16 @@ const Login = ({setIsAuthenticated}) => {
       
     
   return (
-    <Box>
+    <>
+    <Box sx={{margin:'auto',minWidth:'400px',maxWidth:'600px',}}>
+      <Typography component="h1" variant="h5">Welcome to <Typography component="span" variant="h5" sx={{color:'#1976d2'}}>HR PORTAL</Typography></Typography>
+      <Typography componentx="h1" variant="subtitle2">Enter your credentials & continue your journey...</Typography>
+    </Box>
+    <Paper sx={{maxWidth:'600px',minWidth:'400px',padding:'12px 20px',margin:'auto',marginTop:3}} elevation={4}>
         <Typography component="h1" variant="h5">
             Sign in
         </Typography>
+        
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -63,21 +70,21 @@ const Login = ({setIsAuthenticated}) => {
             />
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item>
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid>
-          </Box>
-    </Box>
+            </Grid> */}
+        </Box>
+    </Paper>
+    </>
   )
 }
 

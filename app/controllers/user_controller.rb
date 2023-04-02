@@ -1,7 +1,7 @@
 class UserController < ApplicationController
     
     def create
-        user=User.new({first_name:params[:first_name],middle_name:params[:middle_name],last_name:params[:last_name],email:params[:email],contact_no:params[:contact_no],address:params[:address],bank_name:params[:bank_name],account_no:params[:account_no],ifsc_no:params[:ifsc_no],job_profile:params[:job_profile],is_admin:params[:is_admin].to_s,salary:params[:salary]})
+        user=User.new({first_name:params[:first_name],middle_name:params[:middle_name],last_name:params[:last_name],email:params[:email],contact_no:params[:contact_no],address:params[:address],bank_name:params[:bank_name],account_no:params[:account_no],ifsc_no:params[:ifsc_no],job_profile:params[:job_profile],is_admin:params[:is_admin].to_s,salary:params[:salary].to_s})
         user.save
         render json:{'success':true,'user':user}, status: :ok
     end
@@ -13,6 +13,7 @@ class UserController < ApplicationController
 
     def show
         user=User.find(params[:id])
+        user.salary
         render json:{'user':user}, status: :ok
     end
 

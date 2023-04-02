@@ -12,8 +12,10 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import Toast from "./Toast";
 
 const Deduction = () => {
+  const [open, setOpen] = useState(false);
   const [profiles, setProfiles] = useState([]);
   const [jobProfile, setJobProfile] = React.useState('');
 
@@ -38,11 +40,32 @@ const Deduction = () => {
     setJobProfile(event.target.value);
   };
 
-  const onSubmit = (data) => {
-    console.log("Form Data >> ",{...data,"job_profile":jobProfile})
+  const onSubmit = async (data) => {
+    const deduction_amts={...data,"job_profile":jobProfile};
+    console.log("Form Data >> ",deduction_amts)
+    try {
+      const deductions = await axios.post("/deduction", deduction_amts);
+      if (deductions) {
+        reset();
+        setJobProfile('')
+        setOpen(true);
+        setTimeout(() => {
+          setOpen(false);
+        }, 3000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Box>
+      <Toast
+          msg="Deduction Set"
+          open={open}
+          setOpen={setOpen}
+          title="Success"
+          severity="success"
+        />
       <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <Typography
         className="font-bold text-lg border-l-4 px-2 border-blue-500 bg-blue-100 max-w-max rounded-sm"
@@ -74,7 +97,7 @@ const Deduction = () => {
           label="Deduction 1"
           variant="outlined"
           fullWidth
-          {...register("deduction_one", { required: "This Field is required"})}
+          {...register("deduction_one_amt", { required: "This Field is required"})}
           error={Boolean(errors.deduction_one)}
           helperText={errors.deduction_one?.message}
         />
@@ -82,13 +105,13 @@ const Deduction = () => {
           label="Deduction 2"
           variant="outlined"
           fullWidth
-          {...register("deduction_Two", { required:false})}
+          {...register("deduction_two_amt", { required:false})}
         />
         <TextField
           label="Deduction 3"
           variant="outlined"
           fullWidth
-          {...register("deduction_Three", { required:false})}
+          {...register("deduction_three_amt", { required:false})}
         />
       </Box>
       <Box sx={{ marginTop: 2 }}>
