@@ -287,7 +287,20 @@ const AddUser = () => {
                   error={Boolean(errors.salary)}
                   helperText={errors.salary?.message}
                 />
-                <FormControl fullWidth>
+                <TextField
+                  label="Password*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("password", {
+                    required: "password is required",}
+                    )}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password?.message}
+                />
+              </Box>
+              {/* Is admin */}
+              <Box>
+              <FormControl fullWidth>
                   <Box className="flex items-center  p-1 rounded">
                     <FormControlLabel
                       label={

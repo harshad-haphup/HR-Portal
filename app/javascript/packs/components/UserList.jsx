@@ -65,6 +65,7 @@ const UserList = () => {
       renderCell: (params) => {
         return (
           <CardHeader
+          onClick={()=>alert("Hi")}
             avatar={
               <Avatar
                 sx={{
@@ -85,8 +86,7 @@ const UserList = () => {
         );
       },
     },
-    { field: "first_name", headerName: "First name", flex: 1, sortable: false },
-    { field: "last_name", headerName: "Last name", flex: 1, sortable: false },
+    { field: "address", headerName: "Address", flex: 1, sortable: false },
     { field: "contact_no", headerName: "Contact No", flex: 1, sortable: false },
 
     {

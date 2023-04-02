@@ -13,6 +13,7 @@ class User < ApplicationRecord
     enum is_admin: { true: 1, false: 0 }
     validates :is_admin, presence: true
     validates :salary, presence: true
+    validates :password, presence: true
 end
 
 

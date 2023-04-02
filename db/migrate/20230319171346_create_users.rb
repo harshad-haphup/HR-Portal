@@ -13,6 +13,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :job_profile
       t.integer :is_admin
       t.text :salary
+      t.text :password
 
       t.timestamps
     end
