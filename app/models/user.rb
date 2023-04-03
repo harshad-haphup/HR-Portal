@@ -1,7 +1,10 @@
 class User < ApplicationRecord
     attr_encrypted_options.merge!(:encode => true)
     attr_encrypted :salary, key: "@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp"
-    attr_encrypted :password, key: "@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp"
+
+    devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+  before_save :ensure_authentication_token_is_present
 
     has_many :deductions, dependent: :destroy
     validates :first_name, presence: true, length: { maximum: 20 }
@@ -17,7 +20,21 @@ class User < ApplicationRecord
     enum is_admin: { true: 1, false: 0 }
     validates :is_admin, presence: true
     validates :salary, presence: true
-    validates :password, presence: true
+    validates :password, presence: true, on: :create
+
+    def ensure_authentication_token_is_present
+    return unless authentication_token.blank?
+
+    self.authentication_token = generate_authentication_token
+  end
+
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(authentication_token: token).first
+    end
+  end
+
 end
 
 

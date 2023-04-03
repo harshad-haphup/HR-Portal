@@ -16,15 +16,21 @@ const Login = ({}) => {
     const navigate=useNavigate();
       const onSubmit =async (data) => {
         const payload = {
-            email: 'sample@sample.com',
+            // email: 'sample@sample.com',
+            email: data.email,
             password: data.password,
           };
         try {
-            const { data : { user }, } = await axios.post('/admin_users/sign_in', { user : payload } );
+            const { data : { user }, } = await axios.post('/users/sign_in', { user : payload } );
             localStorage.setItem('authToken', JSON.stringify(user.authentication_token));
             localStorage.setItem('authEmail', JSON.stringify(user.email));
             localStorage.setItem('userId', JSON.stringify(user.id));
-            navigate("/");
+            localStorage.setItem('userRole', user.is_admin);
+            // console.log(">> is admin",user.is_admin)
+            // console.log(">>>> convert",Boolean(user.is_admin))
+            // console.log(typeof Boolean(JSON.parse(user.is_admin)))
+            Boolean(JSON.parse(user.is_admin)) ? navigate("/") : navigate("/userProfile") ;
+            
         } catch (error) {
             console.log("error",error.response.data)
         }

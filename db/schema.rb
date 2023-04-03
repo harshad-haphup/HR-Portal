@@ -41,7 +41,8 @@ ActiveRecord::Schema.define(version: 2023_03_28_090608) do
     t.string "first_name"
     t.string "middle_name"
     t.string "last_name"
-    t.string "email"
+    t.string "email", default: "", null: false
+    t.text "encrypted_password"
     t.string "contact_no"
     t.string "address"
     t.string "bank_name"
@@ -49,12 +50,16 @@ ActiveRecord::Schema.define(version: 2023_03_28_090608) do
     t.string "ifsc_no"
     t.string "job_profile"
     t.integer "is_admin"
+    t.string "authentication_token"
     t.text "encrypted_salary"
-    t.text "encrypted_password"
     t.text "encrypted_salary_iv"
-    t.text "encrypted_password_iv"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

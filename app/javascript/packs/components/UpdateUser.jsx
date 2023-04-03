@@ -341,7 +341,7 @@ const UpdateUser = () => {
                   error={Boolean(errors.salary)}
                   helperText={errors.salary?.message}
                 />
-                <TextField
+                {/* <TextField
                   label="Password*"
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
@@ -354,7 +354,7 @@ const UpdateUser = () => {
                   )}
                   error={Boolean(errors.password)}
                   helperText={errors.password?.message}
-                />
+                /> */}
               </Box>
               <Box>
               <FormControl fullWidth>

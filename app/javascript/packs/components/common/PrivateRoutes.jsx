@@ -4,8 +4,9 @@ import Navbar from '../Navbar';
 
 function PrivateRoutes() {
   const auth=localStorage.getItem("authToken")
+  const role=JSON.parse(localStorage.getItem("userRole"))
   return (
-    auth ? <><Navbar/><Outlet/></> : <Navigate to="/login"/>
+    (auth && role) ? <><Navbar/><Outlet/></> : !(role) ? <Navigate to="/userProfile"/> : <Navigate to="/login"/>
   );
 }
 

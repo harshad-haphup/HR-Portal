@@ -24,10 +24,11 @@ const drawerWidth = 240;
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [isAdmin, setIsAdmin] = React.useState(false);
   const navigate = useNavigate();
   const handleLogout =async () =>{
     try {
-      await axios.delete('admin_users/sign_out');
+      await axios.delete('users/sign_out');
       localStorage.clear();
       navigate("/login");
     } catch(error) {
@@ -37,7 +38,12 @@ function DrawerAppBar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
+    React.useEffect(()=>{
+      const checkAdmin=JSON.parse(localStorage.getItem("userRole"))
+      // console.log("checkAdmin",checkAdmin)
+      // console.log("checkAdmin type",typeof checkAdmin)
+      setIsAdmin(checkAdmin)
+    },[])
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -45,14 +51,23 @@ function DrawerAppBar(props) {
       </Typography>
       <Divider sx={{marginBottom:2}}/>
       <Stack direction="column" spacing={2}>
-      <Link to="/add">
+      {
+        isAdmin && <Link to="/add">
         <Typography>Add User</Typography>
       </Link>
-      <Link to="/users">
+      }
+      {
+        isAdmin && <Link to="/users">
         <Typography>User List</Typography>
       </Link>
+      }
+      {
+        isAdmin && <Link to="/set_deduction">
+        <Typography>Deduction</Typography>
+      </Link>
+      }
       <Link onClick={handleLogout}>
-              <Typography sx={{color:'white'}}>Logout</Typography>
+              <Typography>Logout</Typography>
       </Link>
       </Stack>
     </Box>
@@ -84,18 +99,24 @@ function DrawerAppBar(props) {
             sx={{ display: { xs: "none", sm: "flex" } }}
             className="flex gap-5"
           >
-            <NavLink to="/add"
-             className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
-              <Typography >Add User</Typography>
-            </NavLink>
-            <NavLink to="/users"
+            {
+              isAdmin && <NavLink to="/add"
+              className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
+               <Typography >Add User</Typography>
+             </NavLink>
+            }
+           {
+            isAdmin &&  <NavLink to="/users"
             className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
               <Typography>User List</Typography>
             </NavLink>
-            <NavLink to="/deduction"
-            className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
-              <Typography>Decuction</Typography>
-            </NavLink>
+           }
+            {
+              isAdmin && <NavLink to="/set_deduction"
+              className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
+                <Typography>Decuction</Typography>
+              </NavLink>
+            }
             <Link onClick={handleLogout}>
               <Typography sx={{color:'white'}}>Logout</Typography>
             </Link>
