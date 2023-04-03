@@ -12,8 +12,11 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :ifsc_no
       t.string :job_profile
       t.integer :is_admin
-      t.text :salary
-      t.text :password
+      t.text :encrypted_salary
+      t.text :encrypted_password
+      t.text :encrypted_salary_iv
+      t.text :encrypted_password_iv
+      
 
       t.timestamps
     end

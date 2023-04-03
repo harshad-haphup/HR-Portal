@@ -18,7 +18,7 @@ module HrPortal
     #   end if File.exists?(env_file)
     # end
     # encryption_key = SecureRandom.random_bytes(32)
-    ENV['ENCRYPTION_KEY'] = "f655027a941f29813d45101341e0d4d58c43d30d4c3e2453ef0cef80a6955f01"
+    ENV['ENCRYPTION_KEY'] = "@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp"
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

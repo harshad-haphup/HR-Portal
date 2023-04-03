@@ -11,7 +11,7 @@ const Home = () => {
     .then((res) => res.data)
     .then((data) => {
       setUserCount((prev)=>{
-        return data.count >= 10 ? data.count : `0${data.count}`
+        return data.count >= 10 || data.count == 0 ? data.count : `0${data.count}`
       })
     });
   }, [])

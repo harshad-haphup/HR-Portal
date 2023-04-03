@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+    attr_encrypted_options.merge!(:encode => true)
+    attr_encrypted :salary, key: "@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp"
+    attr_encrypted :password, key: "@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp"
+
     has_many :deductions, dependent: :destroy
     validates :first_name, presence: true, length: { maximum: 20 }
     validates :middle_name, presence: true, length: { maximum: 20 }
