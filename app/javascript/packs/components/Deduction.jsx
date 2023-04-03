@@ -13,6 +13,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Toast from "./Toast";
+import ListIcon from '@mui/icons-material/List';
+import { Link } from "react-router-dom";
 
 const Deduction = () => {
   const [open, setOpen] = useState(false);
@@ -66,6 +68,11 @@ const Deduction = () => {
           title="Success"
           severity="success"
         />
+        <Box sx={{width:'100%',display:'flex',justifyContent:'flex-end'}}>
+        <Link to="/deduction_list">
+            <Button variant="text" startIcon={<ListIcon/>} sx={{alignSelf:'flex-end'}}>Deduction List</Button>
+        </Link>
+        </Box>
       <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <Typography
         className="font-bold text-lg border-l-4 px-2 border-blue-500 bg-blue-100 max-w-max rounded-sm"

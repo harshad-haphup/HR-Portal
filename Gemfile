@@ -56,6 +56,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'jsonapi-serializer'
+  gem "attr_encrypted", "~> 3.1.0"
+
 # gem 'attr_encrypted'
 # gem "lockbox"
 # gem "blind_index"

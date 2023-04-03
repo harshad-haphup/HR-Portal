@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ModeEditOutline, Delete } from "@mui/icons-material";
+import { ModeEditOutline, Delete, Visibility } from "@mui/icons-material";
 import { purple } from "@mui/material/colors";
 import { DataGrid } from "@mui/x-data-grid";
 import AlertDialogSlide from "./Dailog";
@@ -104,6 +104,13 @@ const UserList = () => {
       renderCell: (params) => {
         return (
           <>
+           <IconButton
+              aria-label="fingerprint"
+              color="secondary"
+              onClick={() => navigate(`/user/show/${params.id}`)}
+            >
+              <Visibility />
+            </IconButton>
             <IconButton
               aria-label="fingerprint"
               color="secondary"

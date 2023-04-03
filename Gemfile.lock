@@ -62,12 +62,10 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    argon2-kdf (0.1.7)
+    attr_encrypted (3.1.0)
+      encryptor (~> 3.0.0)
     bcrypt (3.1.18)
     bindex (0.8.1)
-    blind_index (2.3.1)
-      activesupport (>= 5.2)
-      argon2-kdf (>= 0.1.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -91,6 +89,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    encryptor (3.0.0)
     erubi (1.12.0)
     ffi (1.15.5-x64-mingw-ucrt)
     globalid (1.1.0)
@@ -102,7 +101,6 @@ GEM
       activesupport (>= 5.0.0)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
-    lockbox (1.2.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -240,14 +238,13 @@ PLATFORMS
   x64-mingw-ucrt
 
 DEPENDENCIES
-  blind_index
+  attr_encrypted (~> 3.1.0)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
   devise
   jbuilder (~> 2.7)
   jsonapi-serializer
-  lockbox
   pg (~> 1.1)
   pry (~> 0.10.3)
   puma (~> 5.0)

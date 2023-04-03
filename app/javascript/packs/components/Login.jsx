@@ -6,7 +6,7 @@ import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import { palette } from '@mui/system';
 
-const Login = ({setIsAuthenticated}) => {
+const Login = ({}) => {
     const {
         register,
         handleSubmit,

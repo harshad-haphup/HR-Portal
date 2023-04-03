@@ -21,14 +21,17 @@ import { Person2Outlined, Person } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Toast from "./Toast";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,useLocation } from "react-router-dom";
 const UpdateUser = () => {
     const [open, setOpen] = React.useState(false);
+    const [disabled, setDisabled] = React.useState(false);
     const [userData, setUserData] = React.useState({
       first_name:"",
       last_name:""
     });
     const params=useParams();
+    const location = useLocation()
+    
     const {
       register,
       handleSubmit,
@@ -39,6 +42,7 @@ const UpdateUser = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+      setDisabled(Boolean(location.pathname.includes("/user/show")))
       getUser();
     }, [])
     
@@ -55,11 +59,9 @@ const UpdateUser = () => {
       const user = await axios.get(`/user/${params.id}`)
         .then((res) => res.data)
         .then((data) => {
-          console.log("user list >> ",data.user);
           setUserData({...data.user})
         });
     };
-
     const updateUser = async (data)=>{
         try {
           setUserData({})
@@ -106,6 +108,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("first_name", {
                     required: "First name is required",
                     pattern: {
@@ -126,6 +131,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("middle_name", {
                     required: "Middle name is Required",
                     pattern: {
@@ -145,6 +153,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("last_name", {
                     required: "Last name is required",
                     pattern: {
@@ -175,6 +186,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }} 
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("contact_no", {
                     required: "Contact no is required",
                     pattern: {
@@ -194,6 +208,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("email", {
                     required: "Email no is required",
                     pattern: {
@@ -209,6 +226,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("address", {
                     required: "Address no is required",
                     maxLength: {
@@ -235,6 +255,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("bank_name", {
                     required: "Bank Name is required",
                     pattern: {
@@ -250,6 +273,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("account_no", {
                     required: "Account no is required",
                     pattern: {
@@ -265,6 +291,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("ifsc_no", { required: "IFSC no is required" })}
                   error={Boolean(errors.ifsc_no)}
                   helperText={errors.ifsc_no?.message}
@@ -285,6 +314,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("job_profile", {
                     required: "Job Profile no is required",
                   })}
@@ -296,6 +328,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("salary", {
                     required: "Salary no is required",
                     pattern: {
@@ -311,6 +346,9 @@ const UpdateUser = () => {
                   variant="outlined"
                   InputLabelProps={{ shrink: true }}
                   fullWidth
+                  InputProps={{
+                    readOnly: disabled,
+                  }}
                   {...register("password", {
                     required: "password is required"}
                   )}
@@ -331,6 +369,7 @@ const UpdateUser = () => {
                         <Checkbox
                           icon={<Person2Outlined />}
                           checkedIcon={<Person />}
+                          disabled={disabled}
                           {...register("is_admin", { required: false })}
                         />
                       }
@@ -340,11 +379,12 @@ const UpdateUser = () => {
               </Box>
             </Box>
             {/* Submit Button */}
-            <Box>
+            {!disabled && <Box>
               <Button variant="contained" type="submit">
                 Update User
               </Button>
             </Box>
+            }
           </Stack>
         </form>
       </Box>

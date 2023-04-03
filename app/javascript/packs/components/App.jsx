@@ -14,6 +14,7 @@ import Login from './Login'
 import PrivateRoutes from './common/PrivateRoutes'
 import PublicRoutes from './common/PublicRoutes'
 import { setAuthHeaders } from '../api/axios'
+import DeductionList from './DeductionList'
 
 const App = () => {
   const matches = useMediaQuery('(min-width:768px)');
@@ -30,12 +31,15 @@ const App = () => {
               <Route element={<AddUser/>} path="/add"/>
               <Route element={<UserList/>} path="/users"/>
               <Route element={<UpdateUser/>} path="/user/update/:id"/>
+              <Route element={<UpdateUser/>} path="/user/show/:id"/>
               <Route element={<Deduction/>} path="/deduction"/>
+              <Route element={<DeductionList/>} path="/deduction_list"/>
            </Route>
            <Route element={<PublicRoutes/>}>
               <Route path="/about" element={<About/>}/>
           </Route>
               <Route path="/login" element={<Login/>}/>
+              <Route path="/user/login" element={<Login loginas="user"/>}/>
         </Routes>
         </Container>
        </Router>
