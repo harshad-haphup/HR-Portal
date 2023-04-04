@@ -17,6 +17,8 @@ class UserController < ApplicationController
         render json:{'user':user}, status: :ok
     end
 
+    
+
     def update
         user=User.find_by(id:params[:id])
         user.update({first_name:params[:first_name],middle_name:params[:middle_name],last_name:params[:last_name],email:params[:email],contact_no:params[:contact_no],address:params[:address],bank_name:params[:bank_name],account_no:params[:account_no],ifsc_no:params[:ifsc_no],job_profile:params[:job_profile],is_admin:params[:is_admin].to_s,salary:params[:salary].to_s,password:params[:password]})
@@ -44,6 +46,18 @@ class UserController < ApplicationController
     def job_profiles
         job_profiles=User.distinct.pluck(:job_profile)
         render json: { 'job_profiles': job_profiles}, status: :ok
+    end
+
+    def reporte
+        @User=params[:id]
+        respond_to do |format|
+            format.html
+            format.pdf do
+            #   render pdf: "reporte", template: 'user/reporte', layout: 'pdf.html'   # Excluding ".pdf" extension.
+                # render :pdf => "monthly_events.pdf",:template => "user/reporte.html.erb"
+                render pdf: "recipt", template: 'user/reporte', formats: [:html]
+            end
+          end
     end
     
     def getUserAllDeduction

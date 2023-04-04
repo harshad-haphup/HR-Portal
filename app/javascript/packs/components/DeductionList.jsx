@@ -58,7 +58,27 @@ const DeductionList = () => {
       setrpg(parseInt(event.target.value, 10));
       setpg(0);
   }
-
+  
+  const generatePDF = (id) => {
+    axios.get(`user/generate_pdf/${id}.pdf`, {
+      responseType: "arraybuffer",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/pdf",
+      },
+    })
+    .then((response)=>{
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'FILENAME.pdf');
+      document.body.appendChild(link);
+      link.click();
+    }).catch((err)=>{
+      console.log("Error", err);
+  
+    })
+  }
 
  
   return (
@@ -94,7 +114,7 @@ const DeductionList = () => {
                                     {row.total_deduction}
                                 </TableCell>
                                 <TableCell>
-                                  <IconButton onClick={()=>alert("Hiiii "+row.user_name)} color="primary" aria-label="generate pdf"><Print/></IconButton>
+                                  <IconButton onClick={()=>generatePDF(row.user_id)} color="primary" aria-label="generate pdf"><Print/></IconButton>
                                 </TableCell>
                             </TableRow>
                         ))

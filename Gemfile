@@ -56,7 +56,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'jsonapi-serializer'
-  gem "attr_encrypted", "~> 3.1.0"
+gem "attr_encrypted", "~> 3.1.0"
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 # gem 'attr_encrypted'
 # gem "lockbox"
