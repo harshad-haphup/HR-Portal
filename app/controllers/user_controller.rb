@@ -45,4 +45,25 @@ class UserController < ApplicationController
         job_profiles=User.distinct.pluck(:job_profile)
         render json: { 'job_profiles': job_profiles}, status: :ok
     end
+    
+    def getUserAllDeduction
+        users=User.all.includes(:deductions)
+        userList=[]
+        users.each do |user|
+            userInfo={
+                user_id: user.id,
+                user_name:  "#{user.first_name}  #{user.last_name}",
+                salary: user.salary,
+                total_deduction: total_deduction(user),
+                deductions: user.deductions
+            };
+            userList.push(userInfo)
+        end
+        render json: userList, status: :ok
+    end
+
+    private
+    def total_deduction(user)
+        total=user.deductions.sum(:deduction_one_amt).to_f+user.deductions.sum(:deduction_two_amt).to_f+user.deductions.sum(:deduction_three_amt).to_f
+    end
 end
