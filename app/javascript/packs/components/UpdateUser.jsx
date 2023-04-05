@@ -25,9 +25,11 @@ import { useNavigate, useParams,useLocation } from "react-router-dom";
 const UpdateUser = () => {
     const [open, setOpen] = React.useState(false);
     const [disabled, setDisabled] = React.useState(false);
+    const [checked, setChecked] = React.useState(false);
     const [userData, setUserData] = React.useState({
       first_name:"",
-      last_name:""
+      last_name:"",
+      is_admin:"false"
     });
     const params=useParams();
     const location = useLocation()
@@ -60,6 +62,7 @@ const UpdateUser = () => {
         .then((res) => res.data)
         .then((data) => {
           setUserData({...data.user})
+          setChecked(Boolean(JSON.parse(data.user.is_admin)))
         });
     };
     const updateUser = async (data)=>{
@@ -366,16 +369,21 @@ const UpdateUser = () => {
                         </Typography>
                       }
                       control={
+                        
                         <Checkbox
                           icon={<Person2Outlined />}
                           checkedIcon={<Person />}
                           disabled={disabled}
                           {...register("is_admin", { required: false })}
+                          // checked={userData.is_admin == "true" ? true : false}
+                          checked={checked}
+                          onChange={()=>setChecked(!checked)}
                         />
                       }
                     />
                   </Box>
                 </FormControl>
+                
               </Box>
             </Box>
             {/* Submit Button */}

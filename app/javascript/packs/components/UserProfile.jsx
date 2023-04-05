@@ -43,9 +43,10 @@ const UserProfile = () => {
     .catch((error)=>console.log(error))
   },[])
   return (
-    <Box className="bg-gray-100 px-8 py-4 rounded">
-      <Stack direction="row" spacing={2}>
-        <Avatar
+    <Box className="bg-gray-100 px-8 py-4 rounded shadow-lg">
+      <Stack direction="row" spacing={2} justifyContent="space-between">
+       <Stack direction="row" spacing={2}>
+       <Avatar
           sx={{
             backgroundColor: purple[100],
             color: purple[600],
@@ -59,9 +60,11 @@ const UserProfile = () => {
           <Typography variant="body1">Name</Typography>
           <Typography variant="body2">{`${userInfo.userInfo.first_name} ${userInfo.userInfo.middle_name} ${userInfo.userInfo.last_name}`}</Typography>
         </Box>
+       </Stack>
         <Box
+        className="ml-auto"
           sx={{
-            marginLeft: 8,
+            marginLeft: "auto",
             display: "flex",
             alignItems: "center",
             gap: "5px",
