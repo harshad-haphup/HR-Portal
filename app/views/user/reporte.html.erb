@@ -1,6 +1,55 @@
 
-    <div id="content">
-      <h1>Hello world</h1>
-      <%= "Hello" %>
-      <%= @User  %>
+    <div id="content" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-align: center;display: flex;flex-direction: column;align-items: center;justify-content: center;width:100%;height:100vh;">
+     <div>
+      <h1 style="text-transform: uppercase;">HR Portal</h1>
+      <h4>Deduction Report</h4>
+      <div style="display: flex;justify-content: space-between;gap: 20px;margin-top: 20px;">
+        <p>Employee Id : <%= @user.id %></p>
+        <p>Employee Name : <%= "#{@user.first_name} #{@user.middle_name} #{@user.last_name}" %></p>
+      </div>
+    </div>
+      <table style="border: 1px solid black;border-collapse: collapse;">
+        <thead>
+          <tr style="border: 1px solid black;">
+            <th style="border: 1px solid black; padding: 10px;">Earnings</th>
+            <th style="border: 1px solid black; padding: 10px;">Amount</th>
+            <!-- <th style="border: 1px solid black; padding: 10px;">Deductions</th> -->
+            <th style="border: 1px solid black; padding: 10px;">Deduction Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border: 1px solid black;">
+            <td style="border: 1px solid black; padding: 10px;">Salary</td>
+            <td style="border: 1px solid black; padding: 10px;"><%= @user.salary %></td>
+            <!-- <td style="border: 1px solid black; padding: 10px;">
+              <% if @deductions %>
+                <% @deductions.each do |deduction| %>
+                  <%= "deduction_one_amt" %><br>
+                  <%= "deduction_two_amt" %><br>
+                  <%= "deduction_three_amt" %><br>
+                <% end %>                  
+              <% end %>
+            </td> -->
+            <td style="border: 1px solid black; padding: 10px;">
+              <% if @deductions %>
+              <% total_deduction=0 %>
+              <% @deductions.each do |deduction| %>
+              <%= deduction.deduction_one_amt %><br>
+              <%= deduction.deduction_two_amt %><br>
+              <%= deduction.deduction_three_amt %><br>
+              <% 
+                total_deduction=total_deduction+deduction.deduction_one_amt.to_f+deduction.deduction_two_amt.to_f+deduction.deduction_three_amt.to_f
+              %>
+                <% end %>                  
+              <% end %>
+            </td>
+          </tr>
+          <tr style="border: 1px solid black;">
+            <td style="border: 1px solid black;padding: 10px;">Total Earnings</td>
+            <td style="border: 1px solid black;padding: 10px;"><%= @user.salary %></td>
+            <!-- <td style="border: 1px solid black;padding: 10px;">Total Deduction</td> -->
+            <td style="border: 1px solid black;padding: 10px;"><%= total_deduction %></td>
+          </tr>
+        </tbody>
+      </table>
     </div>

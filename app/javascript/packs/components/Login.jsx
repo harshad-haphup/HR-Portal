@@ -5,8 +5,10 @@ import { useForm } from "react-hook-form";
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import { palette } from '@mui/system';
+import Toast from './Toast';
 
 const Login = ({}) => {
+  const [open, setOpen] = React.useState({isOpen:false,msg:""});
     const {
         register,
         handleSubmit,
@@ -32,7 +34,13 @@ const Login = ({}) => {
             Boolean(JSON.parse(user.is_admin)) ? navigate("/") : navigate("/userProfile") ;
             
         } catch (error) {
-            console.log("error",error.response.data)
+            // console.log("error",error.response.data)
+              reset();
+              setOpen({isOpen:true,msg:error.response.data.error});
+              setTimeout(() => {
+                setOpen(false);
+              }, 3000);
+            
         }
       };
       useEffect(() => {
@@ -45,6 +53,13 @@ const Login = ({}) => {
     
   return (
     <>
+    <Toast
+          msg={open.msg}
+          open={open.isOpen}
+          setOpen={setOpen}
+          title="Invalid Credentials"
+          severity="error"
+        />
     <Box sx={{margin:'auto',minWidth:'400px',maxWidth:'600px',}}>
       <Typography component="h1" variant="h5">Welcome to <Typography component="span" variant="h5" sx={{color:'#1976d2'}}>HR PORTAL</Typography></Typography>
       <Typography componentx="h1" variant="subtitle2">Enter your credentials & continue your journey...</Typography>

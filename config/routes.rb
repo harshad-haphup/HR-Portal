@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get '/user_count' => 'user#count'
       get '/job_profiles' => 'user#job_profiles'
       get '/generate_pdf/:id' => 'user#reporte'
+      get '/user_profile/:id' => 'user#user_profile'
       post '/getAllDeduction' => 'user#getUserAllDeduction'
     end
   end

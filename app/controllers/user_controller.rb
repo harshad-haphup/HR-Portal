@@ -13,7 +13,7 @@ class UserController < ApplicationController
 
     def show
         user=User.find(params[:id])
-        user.salary
+        # user.salary
         render json:{'user':user}, status: :ok
     end
 
@@ -49,7 +49,8 @@ class UserController < ApplicationController
     end
 
     def reporte
-        @User=params[:id]
+        @user=User.find_by(id: params[:id])
+        @deductions=@user.deductions
         respond_to do |format|
             format.html
             format.pdf do
@@ -60,6 +61,16 @@ class UserController < ApplicationController
           end
     end
     
+    def user_profile
+        user={}
+        userInfo=User.find(params[:id])
+        deduction=userInfo.deductions.pluck(:deduction_one_amt, :deduction_two_amt, :deduction_three_amt)
+        total_deduction=deduction.flatten.compact.sum
+        user["userInfo"]=userInfo
+        user["total_deduction"]=total_deduction
+        render json: user, status: :ok
+    end
+
     def getUserAllDeduction
         users=User.all.includes(:deductions)
         userList=[]

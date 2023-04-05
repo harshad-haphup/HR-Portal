@@ -86,33 +86,33 @@ const UserList = () => {
         );
       },
     },
-    { field: "address", headerName: "Address", flex: 1, sortable: false },
-    { field: "contact_no", headerName: "Contact No", flex: 1, sortable: false },
+    { field: "address", headerName: "Address", sortable: false, flex: 1 },
+    { field: "contact_no", headerName: "Contact No", sortable: false, flex: 1 },
 
     {
       field: "job_profile",
       headerName: "Job Profile",
-      sortable: false,
-      flex: 1,
+      sortable: false, 
+      flex: 1
     },
     {
       field: "action",
       headerName: "Action",
-      flex: 1,
       sortable: false,
-      colspan: 2,
+      colspan: 2, 
+      flex: 1,
       renderCell: (params) => {
         return (
           <>
            <IconButton
-              aria-label="fingerprint"
+              aria-label="showRecord"
               color="secondary"
               onClick={() => navigate(`/user/show/${params.id}`)}
             >
               <Visibility />
             </IconButton>
             <IconButton
-              aria-label="fingerprint"
+              aria-label="updateRecord"
               color="secondary"
               onClick={() => navigate(`/user/update/${params.id}`)}
             >
@@ -120,7 +120,7 @@ const UserList = () => {
             </IconButton>
             <IconButton
               onClick={() => showDailog(params.id)}
-              aria-label="fingerprint"
+              aria-label="deleteRecord"
               color="secondary"
             >
               <Delete />
@@ -146,7 +146,7 @@ const UserList = () => {
         elevation={4}
         variant="elevation"
         className="p-2"
-        sx={{ height: 550, width: "100%" }}
+        sx={{ height: 550,width:'60vw' }}
       >
         <AlertDialogSlide
           title="Confirm Delete"
