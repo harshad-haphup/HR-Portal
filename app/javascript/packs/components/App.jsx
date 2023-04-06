@@ -23,7 +23,7 @@ const App = () => {
     setAuthHeaders();
   },[]);
   return (
-      <Box className='h-screen w-full flex items-center'>
+      <Box className='h-screen w-full flex items-center justify-center'>
        <Router>
         <Container sx={!matches ? {paddingTop:25}:{paddingTop:5}}>
         <Routes>

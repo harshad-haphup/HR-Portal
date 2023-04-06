@@ -146,7 +146,7 @@ const UserList = () => {
         elevation={4}
         variant="elevation"
         className="p-2"
-        sx={{ height: 550,width:'60vw' }}
+        sx={{ height: 550,width:'60vw',margin:'auto' }}
       >
         <AlertDialogSlide
           title="Confirm Delete"

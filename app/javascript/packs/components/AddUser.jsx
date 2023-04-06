@@ -15,22 +15,39 @@ import {
   Typography,
   Alert,
   FormHelperText,
+  InputAdornment,
+  IconButton,
+  OutlinedInput,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
-import { Person2Outlined, Person } from "@mui/icons-material";
+import {
+  Person2Outlined,
+  Person,
+  VisibilityOff,
+  Visibility,
+} from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Toast from "./Toast";
 
 const AddUser = () => {
   const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
+const matches = useMediaQuery('(min-width:768px)');
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -54,7 +71,7 @@ const AddUser = () => {
   };
   return (
     <>
-      <Box className="mt-8">
+      <Box className="mt-8" sx={!matches ? {paddingTop:60}:{paddingTop:5}}>
         <Toast
           msg="User Added"
           open={open}
@@ -242,13 +259,15 @@ const AddUser = () => {
                 Other Information
               </Typography>
               <Box className="flex flex-col gap-4 mt-3 mx-2 md:flex-row">
-                <TextField 
-                label="Job Profile*" 
-                variant="outlined" 
-                fullWidth
-                {...register("job_profile", { required: "Job Profile no is required" })}
-                error={Boolean(errors.job_profile)}
-                helperText={errors.job_profile?.message}
+                <TextField
+                  label="Job Profile*"
+                  variant="outlined"
+                  fullWidth
+                  {...register("job_profile", {
+                    required: "Job Profile no is required",
+                  })}
+                  error={Boolean(errors.job_profile)}
+                  helperText={errors.job_profile?.message}
                 />
                 {/* <FormControl sx={{ m: 1, minWidth: 120 }} >
                   <InputLabel id="demo-simple-select-error-label">
@@ -287,20 +306,45 @@ const AddUser = () => {
                   error={Boolean(errors.salary)}
                   helperText={errors.salary?.message}
                 />
-                <TextField
+                {/* <TextField
                   label="Password*"
                   variant="outlined"
                   fullWidth
+                  type={showPassword ? 'text' : 'password'}
+                  
                   {...register("password", {
                     required: "password is required",}
                     )}
                   error={Boolean(errors.password)}
                   helperText={errors.password?.message}
-                />
+                /> */}
+                <FormControl variant="outlined" error={Boolean(errors.password)} fullWidth>
+                  <InputLabel> Password </InputLabel>
+                  <OutlinedInput
+                    type={showPassword ? "text" : "password"}
+                    label="Password"
+                    {...register("password", {
+                      required: "password is required",}
+                      )}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                  <FormHelperText>{errors.password?.message}</FormHelperText>
+                </FormControl>
               </Box>
               {/* Is admin */}
               <Box>
-              <FormControl fullWidth>
+                <FormControl fullWidth>
                   <Box className="flex items-center  p-1 rounded">
                     <FormControlLabel
                       label={
