@@ -113,7 +113,7 @@ const UserList = () => {
             </IconButton>
             <IconButton
               aria-label="updateRecord"
-              color="secondary"
+              color="primary"
               onClick={() => navigate(`/user/update/${params.id}`)}
             >
               <ModeEditOutline />
@@ -121,7 +121,7 @@ const UserList = () => {
             <IconButton
               onClick={() => showDailog(params.id)}
               aria-label="deleteRecord"
-              color="secondary"
+              color="error"
             >
               <Delete />
             </IconButton>

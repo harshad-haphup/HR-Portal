@@ -16,6 +16,7 @@ import PublicRoutes from './common/PublicRoutes'
 import { setAuthHeaders } from '../api/axios'
 import DeductionList from './DeductionList'
 import UserProfile from './UserProfile'
+import NotFoundPage from './NotFoundPage'
 
 const App = () => {
   const matches = useMediaQuery('(min-width:768px)');
@@ -42,6 +43,7 @@ const App = () => {
           </Route>
               <Route path="/login" element={<Login/>}/>
               <Route path="/user/login" element={<Login loginas="user"/>}/>
+              <Route path="*" element={<NotFoundPage/>}/>
         </Routes>
         </Container>
        </Router>
