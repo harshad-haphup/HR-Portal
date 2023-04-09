@@ -63,7 +63,7 @@ function DrawerAppBar(props) {
       }
       {
         isAdmin && <Link to="/set_deduction">
-        <Typography>Deduction</Typography>
+        <Typography>Payroll</Typography>
       </Link>
       }
       <Link onClick={handleLogout}>
@@ -114,7 +114,7 @@ function DrawerAppBar(props) {
             {
               isAdmin && <NavLink to="/set_deduction"
               className={({ isActive }) => isActive ? 'border-b-2 border-white' : '' }>
-                <Typography>Decuction</Typography>
+                <Typography>Payroll</Typography>
               </NavLink>
             }
             <Link onClick={handleLogout}>

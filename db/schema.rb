@@ -29,10 +29,16 @@ ActiveRecord::Schema.define(version: 2023_03_28_090608) do
   end
 
   create_table "deductions", force: :cascade do |t|
-    t.integer "deduction_one_amt"
-    t.integer "deduction_two_amt"
-    t.integer "deduction_three_amt"
-    t.integer "user_id"
+    t.integer "house_rent_allowances", default: 0
+    t.integer "conveyance_allowances", default: 0
+    t.integer "medical_allowances", default: 0
+    t.integer "spcial_allowances", default: 0
+    t.integer "epf_deduction", default: 0
+    t.integer "health_insurance_deduction", default: 0
+    t.integer "professional_tax_deduction", default: 0
+    t.integer "tds_deduction", default: 0
+    t.integer "user_id", default: 0
+    t.string "payroll_month"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

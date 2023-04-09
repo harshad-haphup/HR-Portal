@@ -89,6 +89,6 @@ class UserController < ApplicationController
 
     private
     def total_deduction(user)
-        total=user.deductions.sum(:deduction_one_amt).to_f+user.deductions.sum(:deduction_two_amt).to_f+user.deductions.sum(:deduction_three_amt).to_f
+        total=user.deductions.sum(:epf_deduction).to_f+user.deductions.sum(:health_insurance_deduction).to_f+user.deductions.sum(:professional_tax_deduction).to_f+user.deductions.sum(:tds_deduction).to_f
     end
 end

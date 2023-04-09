@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import axios from 'axios';
-import { Button, IconButton } from '@mui/material';
+import { Button, IconButton, Typography } from '@mui/material';
 import { Print } from '@mui/icons-material';
 
 
@@ -80,17 +80,16 @@ const DeductionList = () => {
     })
   }
 
- 
-  return (
-    <>
-    <Paper>
+  function ListOfUsers (){
+    return(
+      <Paper>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} >
                     <TableHead>
                         <TableRow>
                             <TableCell>id</TableCell>
                             <TableCell>Name</TableCell>
-                            <TableCell>salary</TableCell>
+                            <TableCell>Basic salary</TableCell>
                             <TableCell>Total Deduction</TableCell>
                             <TableCell>Export</TableCell>
                         </TableRow>
@@ -131,7 +130,17 @@ const DeductionList = () => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        </Paper>
+      </Paper>
+    )
+  }
+
+ 
+  return (
+    <>
+     {
+      rows.length > 0 ?  <ListOfUsers /> : 
+      <Table><TableHead><TableRow><TableCell><Typography>No Data Found</Typography></TableCell></TableRow></TableHead></Table>
+     }
     </>
   )
 }

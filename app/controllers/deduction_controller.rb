@@ -20,6 +20,6 @@ class DeductionController < ApplicationController
     private
   
   def deduction_params
-    params.require(:deduction).permit(:deduction_one_amt, :deduction_two_amt, :deduction_three_amt)
+    params.require(:deduction).permit(:house_rent_allowances, :conveyance_allowances, :medical_allowances, :spcial_allowances, :epf_deduction, :health_insurance_deduction, :professional_tax_deduction, :tds_deduction, :payroll_month)
   end
 end

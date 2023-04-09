@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import Toast from "./Toast";
 import ListIcon from '@mui/icons-material/List';
 import { Link } from "react-router-dom";
+import { Article } from "@mui/icons-material";
 
 const Deduction = () => {
   const [open, setOpen] = useState(false);
@@ -43,20 +44,26 @@ const Deduction = () => {
   };
 
   const onSubmit = async (data) => {
-    const deduction_amts={...data,"job_profile":jobProfile};
-    console.log("Form Data >> ",deduction_amts)
-    try {
-      const deductions = await axios.post("/deduction", deduction_amts);
-      if (deductions) {
-        reset();
-        setJobProfile('')
-        setOpen(true);
-        setTimeout(() => {
-          setOpen(false);
-        }, 3000);
-      }
-    } catch (error) {
-      console.log(error);
+    const payroll_data={...data,"job_profile":jobProfile};
+    console.log("Form Data >> ",payroll_data)
+    if(payroll_data.job_profile && payroll_data.job_profile != '')
+    {
+      console.log("form data >> ",payroll_data)
+        try {
+        const deductions = await axios.post("/deduction", payroll_data);
+        if (deductions) {
+          reset();
+          setJobProfile('')
+          setOpen(true);
+          setTimeout(() => {
+            setOpen(false);
+          }, 3000);
+        }
+        } catch (error) {
+          console.log(error);
+        }
+    }else{
+      console.log("else block")
     }
   };
   return (
@@ -70,7 +77,7 @@ const Deduction = () => {
         />
         <Box sx={{width:'100%',display:'flex',justifyContent:'flex-end'}}>
         <Link to="/deduction_list">
-            <Button variant="text" startIcon={<ListIcon/>} sx={{alignSelf:'flex-end'}}>Deduction List</Button>
+            <Button variant="text" startIcon={<Article/>} sx={{alignSelf:'flex-end'}}>Payroll List</Button>
         </Link>
         </Box>
       <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
@@ -78,7 +85,7 @@ const Deduction = () => {
         className="font-bold text-lg border-l-4 px-2 border-blue-500 bg-blue-100 max-w-max rounded-sm"
         variant="h6"
         >
-        Set Deduction
+        Payroll
       </Typography>
       <Box sx={{ marginTop: 2 }}>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -98,31 +105,85 @@ const Deduction = () => {
         </Select>
         <FormHelperText>{errors.job_profile?.message}</FormHelperText>
       </FormControl>
+      <TextField
+        sx={{ m: 1, minWidth: 120 }}
+        type="month"
+        {...register("payroll_month", { required: "month is require"})}
+        error={Boolean(errors.payroll_month)}
+        helperText={errors.payroll_month?.message}
+      />
       </Box>
+      <Typography
+        className="font-bold text-lg border-l-4 px-2 border-blue-500 bg-blue-100 max-w-max rounded-sm"
+        variant="h6"
+        >
+        Set Allowances
+      </Typography>
       <Box className="flex flex-col gap-4 mt-3 md:flex-row">
         <TextField
-          label="Deduction 1"
+          label="House Rent Allowances"
           variant="outlined"
           fullWidth
-          {...register("deduction_one_amt", { required: "This Field is required"})}
+          {...register("house_rent_allowances", { required: false})}
           error={Boolean(errors.deduction_one)}
           helperText={errors.deduction_one?.message}
         />
         <TextField
-          label="Deduction 2"
+          label="Conveyance Allowances"
           variant="outlined"
           fullWidth
-          {...register("deduction_two_amt", { required:false})}
+          {...register("conveyance_allowances", { required:false})}
         />
         <TextField
-          label="Deduction 3"
+          label="Medical Allowances"
           variant="outlined"
           fullWidth
-          {...register("deduction_three_amt", { required:false})}
+          {...register("medical_allowances", { required:false})}
+        />
+        <TextField
+          label="Special Allowances"
+          variant="outlined"
+          fullWidth
+          {...register("spcial_allowances", { required:false})}
+        />
+      </Box>
+      <Typography
+        sx={{ marginTop: 2 }}
+        className="font-bold text-lg border-l-4 px-2 border-blue-500 bg-blue-100 max-w-max rounded-sm"
+        variant="h6"
+        >
+        Set Deductions
+      </Typography>
+      <Box className="flex flex-col gap-4 mt-3 md:flex-row">
+        <TextField
+          label="EPF"
+          variant="outlined"
+          fullWidth
+          {...register("epf_deduction", { required: false})}
+          error={Boolean(errors.deduction_one)}
+          helperText={errors.deduction_one?.message}
+        />
+        <TextField
+          label="Health Insurance"
+          variant="outlined"
+          fullWidth
+          {...register("health_insurance_deduction", { required:false})}
+        />
+        <TextField
+          label="Professional Tax"
+          variant="outlined"
+          fullWidth
+          {...register("professional_tax_deduction", { required:false})}
+        />
+        <TextField
+          label="TDS"
+          variant="outlined"
+          fullWidth
+          {...register("tds_deduction", { required:false})}
         />
       </Box>
       <Box sx={{ marginTop: 2 }}>
-      <Button variant="contained" type="submit">Set Deduction</Button>
+      <Button variant="contained" type="submit">Submit</Button>
       </Box>
       </form>
     </Box>
