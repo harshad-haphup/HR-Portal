@@ -33,11 +33,15 @@ const DeductionList = () => {
       data.push(createData(deduction.user_id,deduction.user_name,deduction.total_deduction,deduction.salary))
     })
     setRows([...rows,...data])
-    console.log("add row run >> ")
+    // console.log("add row run >> ")
   },[deductionList])
 
   const getDeductionList = async () => {
-    const deductions=await axios.post("user/getAllDeduction");
+    let date = new Date();
+    let month = "0" + (date.getMonth() + 1);
+    // setCurrentMonth(date.getFullYear() + "-" + month.slice(-2))
+    let currentMonth = date.getFullYear() + "-" + month.slice(-2)
+    const deductions=await axios.post("user/getAllDeduction",{"payroll_month":currentMonth});
     const deductionsData=await deductions.data;
     setDeductionList(deductionsData)
     console.log("deductionsList >> ",deductionsData)

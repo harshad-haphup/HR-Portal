@@ -20,7 +20,7 @@ import { Article } from "@mui/icons-material";
 const Deduction = () => {
   const [open, setOpen] = useState(false);
   const [profiles, setProfiles] = useState([]);
-  const [jobProfile, setJobProfile] = React.useState('');
+  const [jobProfile, setJobProfile] = useState('');
 
   const {
     register,
@@ -48,7 +48,7 @@ const Deduction = () => {
     console.log("Form Data >> ",payroll_data)
     if(payroll_data.job_profile && payroll_data.job_profile != '')
     {
-      console.log("form data >> ",payroll_data)
+      // console.log("form data >> ",payroll_data)
         try {
         const deductions = await axios.post("/deduction", payroll_data);
         if (deductions) {
@@ -63,9 +63,12 @@ const Deduction = () => {
           console.log(error);
         }
     }else{
-      console.log("else block")
+      console.log("Job Profile Required")
     }
   };
+  const handleMonthChange = (event) => {
+    console.log("change month >> ",event.target.value)
+  }
   return (
     <Box>
       <Toast

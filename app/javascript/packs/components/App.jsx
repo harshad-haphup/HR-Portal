@@ -17,6 +17,7 @@ import { setAuthHeaders } from '../api/axios'
 import DeductionList from './DeductionList'
 import UserProfile from './UserProfile'
 import NotFoundPage from './NotFoundPage'
+import AddCompany from './AddCompany'
 
 const App = () => {
   const matches = useMediaQuery('(min-width:768px)');
@@ -36,6 +37,7 @@ const App = () => {
               <Route element={<UpdateUser/>} path="/user/show/:id"/>
               <Route element={<Deduction/>} path="/set_deduction"/>
               <Route element={<DeductionList/>} path="/deduction_list"/>
+              <Route element={<AddCompany/>} path="/add_company"/>
            </Route>
            <Route element={<PublicRoutes/>}>
               <Route element={<UserProfile/>} path="/userProfile"/>

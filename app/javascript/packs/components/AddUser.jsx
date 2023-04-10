@@ -20,7 +20,7 @@ import {
   OutlinedInput,
   useMediaQuery,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Person2Outlined,
   Person,
@@ -32,9 +32,12 @@ import axios from "axios";
 import Toast from "./Toast";
 
 const AddUser = () => {
-  const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState("");
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  // const [age, setAge] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [companies, setCompanies] = useState([]);
+  const [company, setCompany] = useState('');
+
 const matches = useMediaQuery('(min-width:768px)');
   const {
     register,
@@ -43,6 +46,15 @@ const matches = useMediaQuery('(min-width:768px)');
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    axios
+      .get("/company")
+      .then((res) => res.data)
+      .then((data) => {
+        setCompanies(data.companies);
+      });
+  }, []);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -50,10 +62,13 @@ const matches = useMediaQuery('(min-width:768px)');
   };
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setCompany(event.target.value);
   };
+
   const onSubmit = (data) => {
-    saveData(data);
+    const user_data={...data,"company_id":company};
+    console.log("User Data >> ",user_data)
+    saveData(user_data);
   };
   const saveData = async (data) => {
     try {
@@ -178,7 +193,7 @@ const matches = useMediaQuery('(min-width:768px)');
                   variant="outlined"
                   fullWidth
                   {...register("email", {
-                    required: "Email no is required",
+                    required: "Email is required",
                     pattern: {
                       value: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
                       message: "Enter valid Email Address",
@@ -192,7 +207,7 @@ const matches = useMediaQuery('(min-width:768px)');
                   variant="outlined"
                   fullWidth
                   {...register("address", {
-                    required: "Address no is required",
+                    required: "Address is required",
                     maxLength: {
                       value: 100,
                       message: "Maximum length Exceeded",
@@ -344,6 +359,23 @@ const matches = useMediaQuery('(min-width:768px)');
               </Box>
               {/* Is admin */}
               <Box>
+              <FormControl sx={{ m: 1, minWidth: 120 }} error={company == '' ? true : false}>
+                <InputLabel id="company_id">Select Company</InputLabel>
+                <Select
+                  labelId="company_id"
+                  name="company_id"
+                  value={company}
+                  label="Select Company"
+                  onChange={handleChange}
+                >
+                {
+                  companies?.map((company,index)=>(
+                    <MenuItem key={index} value={company.id}>{company.name}</MenuItem>
+                  ))
+                }
+                </Select>
+                <FormHelperText>{company == '' ? "select Company" : null}</FormHelperText>
+              </FormControl>
                 <FormControl fullWidth>
                   <Box className="flex items-center  p-1 rounded">
                     <FormControlLabel

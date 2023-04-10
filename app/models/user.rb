@@ -7,6 +7,8 @@ class User < ApplicationRecord
   before_save :ensure_authentication_token_is_present
 
     has_many :deductions, dependent: :destroy
+    belongs_to :company
+    
     validates :first_name, presence: true, length: { maximum: 20 }
     validates :middle_name, presence: true, length: { maximum: 20 }
     validates :last_name, presence: true, length: { maximum: 20 }

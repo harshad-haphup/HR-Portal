@@ -7,6 +7,11 @@
         <p>Name : <%= "#{@user.first_name} #{@user.middle_name} #{@user.last_name} " %> </p>
       </div>
     </div> -->
+
+    <%
+      @health_insurance_deduction=@deductions.pluck(:health_insurance_deduction)
+    
+    %>
       <table style="border: 1px solid black;border-collapse: collapse;margin-top: 10px;margin: auto;">
           <thead>
             <tr>

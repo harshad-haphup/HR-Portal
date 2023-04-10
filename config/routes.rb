@@ -21,5 +21,6 @@ Rails.application.routes.draw do
     end
   end
   resources :deduction
+  resources :company
   match "*path", to:'pages#index', via: :all
 end

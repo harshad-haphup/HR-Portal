@@ -13,6 +13,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :ifsc_no
       t.string :job_profile
       t.integer :is_admin
+      t.integer :company_id, foreign_key: true, :default => 0
       t.string :authentication_token
       t.text :encrypted_salary
       t.text :encrypted_salary_iv
