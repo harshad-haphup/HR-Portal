@@ -1,10 +1,11 @@
 class CreateUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
+      t.references :company, foreign_key: true
       t.string :first_name
       t.string :middle_name
       t.string :last_name
-      t.string :email,              null: false, default: ""
+      t.string :email, null: false, default: ""
       t.text :encrypted_password
       t.string :contact_no
       t.string :address
@@ -13,7 +14,6 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :ifsc_no
       t.string :job_profile
       t.integer :is_admin
-      t.integer :company_id, foreign_key: true, :default => 0
       t.string :authentication_token
       t.text :encrypted_salary
       t.text :encrypted_salary_iv

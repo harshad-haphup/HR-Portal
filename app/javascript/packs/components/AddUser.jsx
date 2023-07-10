@@ -358,8 +358,8 @@ const matches = useMediaQuery('(min-width:768px)');
                 </FormControl>
               </Box>
               {/* Is admin */}
-              <Box>
-              <FormControl sx={{ m: 1, minWidth: 120 }} error={company == '' ? true : false}>
+              <Box className="flex items-center">
+              <FormControl sx={{ m: 1, minWidth: 160 }} error={company == '' ? true : false}>
                 <InputLabel id="company_id">Select Company</InputLabel>
                 <Select
                   labelId="company_id"
@@ -376,7 +376,7 @@ const matches = useMediaQuery('(min-width:768px)');
                 </Select>
                 <FormHelperText>{company == '' ? "select Company" : null}</FormHelperText>
               </FormControl>
-                <FormControl fullWidth>
+                <FormControl>
                   <Box className="flex items-center  p-1 rounded">
                     <FormControlLabel
                       label={

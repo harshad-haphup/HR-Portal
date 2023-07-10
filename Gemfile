@@ -64,3 +64,5 @@ gem 'wkhtmltopdf-binary'
 # gem "lockbox"
 # gem "blind_index"
 
+
+gem "tailwindcss-rails", "~> 2.0"

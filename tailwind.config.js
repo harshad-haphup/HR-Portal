@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-   './app/helpers/**/*.rb',
-   './app/javascript/**/*.js',
-   './app/views/**/*',
- ],
- theme: {
-   extend: {},
- },
- plugins: [],
-
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.js',
+    './app/javascript/**/*.{js,jsx,ts,tsx}',
+    './app/views/**/*'
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }
+
